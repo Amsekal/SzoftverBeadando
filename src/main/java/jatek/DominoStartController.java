@@ -78,81 +78,76 @@ public class DominoStartController {
             System.out.printf("Click on square (%d,%d)\n", row, col);
             var coin = (Circle) square.getChildren().get(0);
 
+            if(Orange_Num<4) {
+                if (coin.getFill().equals(Color.WHITE)) {
+                    if (player == Player.ONE) {
+                        player = Player.TWO;
+                        coin.setFill(Color.RED);
+                        Red_Num++;
 
-            if( coin.getFill().equals(Color.WHITE)) {
-                if (player == Player.ONE) {
-                    player = Player.TWO;
-                    coin.setFill(Color.RED);
-                    Red_Num++;
-
-                } else if (player == Player.TWO) {
-                    player = Player.ONE;
-                    coin.setFill(Color.BLUE);
-                    Blue_Num++;
-
-
-                }
-            }
-            else
-            if( coin.getFill().equals(Color.BLUE)) {
-                if (player == Player.ONE) {
-                    player = Player.TWO;
-                    coin.setFill(Color.GREEN);
-                    Blue_Num--;
-                    Green_Num++;
-                } else if (player == Player.TWO) {
-                    player = Player.ONE;
-                    coin.setFill(Color.GREEN);
-                    Blue_Num--;
-                    Green_Num++;
+                    } else if (player == Player.TWO) {
+                        player = Player.ONE;
+                        coin.setFill(Color.BLUE);
+                        Blue_Num++;
 
 
-                }
-                }
-            else
-                if( coin.getFill().equals(Color.RED)) {
+                    }
+                } else if (coin.getFill().equals(Color.BLUE)) {
+                    if (player == Player.ONE) {
+                        player = Player.TWO;
+                        coin.setFill(Color.GREEN);
+                        Blue_Num--;
+                        Green_Num++;
+                    } else if (player == Player.TWO) {
+                        player = Player.ONE;
+                        coin.setFill(Color.GREEN);
+                        Blue_Num--;
+                        Green_Num++;
+
+
+                    }
+                } else if (coin.getFill().equals(Color.RED)) {
                     if (player == Player.ONE) {
                         player = Player.TWO;
                         coin.setFill(Color.GREEN);
                         Red_Num--;
                         Green_Num++;
-                    }
-                    else if (player == Player.TWO) {
+                    } else if (player == Player.TWO) {
                         player = Player.ONE;
                         coin.setFill(Color.GREEN);
                         Red_Num--;
                         Green_Num++;
-                       }}
-            else
-            if( coin.getFill().equals(Color.GREEN)) {
-                if (player == Player.ONE) {
-                    player = Player.TWO;
-                    coin.setFill(Color.ORANGE);
-                    Green_Num--;
-                    Orange_Num++;
+                    }
+                } else if (coin.getFill().equals(Color.GREEN)) {
+                    if (player == Player.ONE) {
+                        player = Player.TWO;
+                        coin.setFill(Color.ORANGE);
+                        Green_Num--;
+                        Orange_Num++;
 
-                } else if (player == Player.TWO) {
-                    player = Player.ONE;
-                    coin.setFill(Color.ORANGE);
-                    Green_Num--;
-                    Orange_Num++;
+                    } else if (player == Player.TWO) {
+                        player = Player.ONE;
+                        coin.setFill(Color.ORANGE);
+                        Green_Num--;
+                        Orange_Num++;
 
 
+                    }
                 }
+
             }
-
-
 
         }
 
     @FXML
     public void endScene(ActionEvent actionEvent) throws IOException {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/End.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-
+            if(Orange_Num==4) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/End.fxml"));
+                Parent root = fxmlLoader.load();
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }
 
 
     }
