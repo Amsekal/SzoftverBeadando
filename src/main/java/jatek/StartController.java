@@ -22,10 +22,12 @@ public class StartController {
     @FXML
     private TextField userName2;
 
+
     public void gameStartScene(ActionEvent actionEvent) throws IOException{
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/DominoStart.fxml"));
         Parent root = fxmlLoader.load();
+        fxmlLoader.<DominoStartController>getController().setUsername(userName1.getText(),userName2.getText());
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
