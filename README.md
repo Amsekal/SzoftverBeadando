@@ -5,7 +5,9 @@ A játék használ javafx-et, van grafikus felülete.
 Az eredményeket egy adatbázisban tárolom, onnan kerülnek kiiratásra a toplistára.
 
 Futtatás:
+
 mvn package
+
 java -jar ./target/ChairGame-1.0.jar
 
 Java 16-ban készült
