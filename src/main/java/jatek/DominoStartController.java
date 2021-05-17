@@ -25,10 +25,7 @@ public class DominoStartController {
 
     private Player player;
 
-    private int Red_Num=0;
-    private int Blue_Num=0;
-    private int Green_Num=0;
-    private int Orange_Num=0;
+
     @FXML
     private Label blueName;
     @FXML
@@ -85,17 +82,17 @@ public class DominoStartController {
 
 
 
-            if(Orange_Num<4) {
+            if(gameState.didEnd()==false) {
                 if (coin.getFill().equals(Color.WHITE)) {
                     if (player == Player.ONE) {
                         player = Player.TWO;
                         coin.setFill(Color.RED);
-                        Red_Num++;
+                        gameState.NewRed();
 
                     } else if (player == Player.TWO) {
                         player = Player.ONE;
                         coin.setFill(Color.BLUE);
-                        Blue_Num++;
+                        gameState.NewBlue();
 
 
                     }
@@ -103,13 +100,11 @@ public class DominoStartController {
                     if (player == Player.ONE) {
                         player = Player.TWO;
                         coin.setFill(Color.GREEN);
-                        Blue_Num--;
-                        Green_Num++;
+                        gameState.LessBlue();
                     } else if (player == Player.TWO) {
                         player = Player.ONE;
                         coin.setFill(Color.GREEN);
-                        Blue_Num--;
-                        Green_Num++;
+                        gameState.LessBlue();
 
 
                     }
@@ -117,45 +112,41 @@ public class DominoStartController {
                     if (player == Player.ONE) {
                         player = Player.TWO;
                         coin.setFill(Color.GREEN);
-                        Red_Num--;
-                        Green_Num++;
+                        gameState.LessRed();
                     } else if (player == Player.TWO) {
                         player = Player.ONE;
                         coin.setFill(Color.GREEN);
-                        Red_Num--;
-                        Green_Num++;
+                        gameState.LessRed();
                     }
                 } else if (coin.getFill().equals(Color.GREEN)) {
                     if (player == Player.ONE) {
                         player = Player.TWO;
                         coin.setFill(Color.ORANGE);
-                        Green_Num--;
-                        Orange_Num++;
+                        gameState.NewOrange();
 
                     } else if (player == Player.TWO) {
                         player = Player.ONE;
                         coin.setFill(Color.ORANGE);
-                        Green_Num--;
-                        Orange_Num++;
+                        gameState.NewOrange();
 
 
                     }
                 }
 
             }
-            rpoint.setText(Integer.toString(Red_Num));
-            bpoint.setText(Integer.toString(Blue_Num));
+            rpoint.setText(Integer.toString(gameState.R_num()));
+            bpoint.setText(Integer.toString(gameState.B_num()));
 
         }
 
     @FXML
     public void endScene(ActionEvent actionEvent) throws IOException {
-            if(Orange_Num==4) {
-                if(Red_Num>Blue_Num)
-                    adatb.Handler.insertResults(username,"RED",Red_Num-Blue_Num);
-                if(Red_Num<Blue_Num)
-                    adatb.Handler.insertResults(username2,"BLUE",Blue_Num-Red_Num);
-                if(Red_Num==Blue_Num)
+            if(gameState.didEnd()) {
+                if(gameState.finalPoint()==1)
+                    adatb.Handler.insertResults(username,"RED",gameState.R_num()-gameState.B_num());
+                if(gameState.finalPoint()==2)
+                    adatb.Handler.insertResults(username2,"BLUE",gameState.B_num()-gameState.R_num());
+                if(gameState.finalPoint()==0)
                     adatb.Handler.insertResults("Deuce","No",0);
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/End.fxml"));
