@@ -26,13 +26,6 @@ public interface ResultDao {
     )
     void createTable();
 
-    /**
-     * Droppolja a toplista tablat.
-     */
-    @SqlUpdate("""
-            drop table toplista
-            """)
-    void deleteContents();
 
     /**
      * Berak az adatbazisba egy rekordot a megadott ertekettel.
@@ -46,6 +39,6 @@ public interface ResultDao {
      * Lekerdezes eredmenyet adja vissza, melyben a rekordok a steps-s alapjan vannak rendezve, melyben a winner nem null.
      * @return Az elso tiz ilyen talalatot adja vissza.
      */
-    @SqlQuery("SELECT * FROM toplista WHERE winner is not null ORDER BY point LIMIT 10")
+    @SqlQuery("SELECT * FROM toplista WHERE winner is not null ORDER BY -point LIMIT 10 ")
     List<Result> listGameResults();
 }
