@@ -33,7 +33,7 @@
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
    <children>
-      <Button fx:id="endButton" mnemonicParsing="false" onAction="#endScene" prefHeight="256.0" prefWidth="532.0" text="Vége" GridPane.columnIndex="7" />
+      <Button fx:id="endButton" mnemonicParsing="false" onAction="#endScene" prefHeight="256.0" prefWidth="532.0" text="End" GridPane.columnIndex="7" />
       <Label prefHeight="17.0" prefWidth="94.0" text="Red player:" GridPane.columnIndex="7" GridPane.rowIndex="1">
          <font>
             <Font size="17.0" />
@@ -46,5 +46,17 @@
             <Font size="17.0" />
          </font>
       </Label>
+      <Label prefHeight="17.0" prefWidth="83.0" text="Red Points:" GridPane.rowIndex="7" />
+      <Label fx:id="rpoint" prefHeight="20.0" prefWidth="120.0" textFill="#ee0000" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="bpoint" prefHeight="20.0" prefWidth="339.0" textFill="#1a00ff" GridPane.columnIndex="3" GridPane.rowIndex="7">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label prefHeight="17.0" prefWidth="83.0" text="Blue Points:" GridPane.columnIndex="2" GridPane.rowIndex="7" />
    </children>
 </GridPane>

@@ -33,6 +33,10 @@ public class DominoStartController {
     private Label blueName;
     @FXML
     private Label redName;
+    @FXML
+    private Label rpoint;
+    @FXML
+    private Label bpoint;
 
     private String username;
     private String username2;
@@ -77,6 +81,9 @@ public class DominoStartController {
             var col = GridPane.getColumnIndex(square);
             System.out.printf("Click on square (%d,%d)\n", row, col);
             var coin = (Circle) square.getChildren().get(0);
+
+
+
 
             if(Orange_Num<4) {
                 if (coin.getFill().equals(Color.WHITE)) {
@@ -136,12 +143,21 @@ public class DominoStartController {
                 }
 
             }
+            rpoint.setText(Integer.toString(Red_Num));
+            bpoint.setText(Integer.toString(Blue_Num));
 
         }
 
     @FXML
     public void endScene(ActionEvent actionEvent) throws IOException {
             if(Orange_Num==4) {
+                if(Red_Num>Blue_Num)
+                    adatb.Handler.insertResults(username,"RED",Red_Num-Blue_Num);
+                if(Red_Num<Blue_Num)
+                    adatb.Handler.insertResults(username2,"BLUE",Blue_Num-Red_Num);
+                if(Red_Num==Blue_Num)
+                    adatb.Handler.insertResults("Deuce","No",0);
+
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/End.fxml"));
                 Parent root = fxmlLoader.load();
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
