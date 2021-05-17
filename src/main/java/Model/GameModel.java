@@ -14,26 +14,26 @@ public class GameModel {
     private int Orange_Num=0;
 
 
-
-
+    /**
+     * konstruktor.
+     */
     public GameModel(){
         activePlayer=Player.ONE;
     }
 
-    public static Player nextPlayer(){
-        if(activePlayer==Player.ONE)
-            return Player.TWO;
-        else
-            return Player.ONE;
-    }
 
+    /**
+     *
+     * @return visszaadja, hogy vege e a jateknak.
+     */
 
-    public boolean didEnd(){
-        if(Orange_Num==4)
+    public boolean didEnd(int Orange){
+        if(Orange==4)
             return true;
         return false;
 
     }
+
 
     public void NewOrange()
     {
@@ -48,10 +48,15 @@ public class GameModel {
 
     public void LessBlue(){Blue_Num--;}
 
-    public int finalPoint(){
-        if(Red_Num<Blue_Num)
+
+    /**
+     *
+     * @return visszaadja a gyoztes jatekos szamat, ha dontetlen akkor pedig 0
+     */
+    public int finalPoint(int Red, int Blue){
+        if(Red<Blue)
             return 2;
-        if(Red_Num>Blue_Num)
+        if(Red>Blue)
             return 1;
 
         return 0;
@@ -59,7 +64,20 @@ public class GameModel {
 
     }
 
-
-    public int R_num(){ return Red_Num;}
+    /**
+     *
+     * @param player A jatekos akinek kivancsi vagyunk a pontjaira
+     * @return a pontok szama
+     */
+    public int Return_num(Player player){
+        if(player==Player.ONE)
+        return Red_Num;
+        return Blue_Num;
+    }
+    public int Return_Orange(){ return Orange_Num;}
+    /**
+     *
+     * @return visszadja hany pontja van a kek jatekosnak
+     */
     public int B_num(){return Blue_Num;}
 }

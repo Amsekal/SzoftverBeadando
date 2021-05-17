@@ -15,15 +15,19 @@ import javafx.scene.shape.Circle;
 import Model.Player;
 import Model.GameModel;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.Stack;
+@Slf4j
 
 public class DominoStartController {
 
     private GameModel gameState;
 
     private Player player;
+
+    public int Orange=0;
 
 
     @FXML
@@ -49,18 +53,26 @@ public class DominoStartController {
         @FXML
         private GridPane board;
 
-        @FXML
-        private void initialize() {
+
+    /**
+     * letrehozzuk a negyzeteket egy 7x7-es mezoben, amikben lesznek majd az ermek
+     */
+    @FXML
+    private void initialize() {
             gameState= new GameModel();
             player=GameModel.activePlayer;
             for (int i = 0; i < 7; i++) {
-                for (int j = 0; j < 7/*board.getColumnCount()*/; j++) {
+                for (int j = 0; j < 7; j++) {
                     var square = createSquare();
                     board.add(square, j, i);
                 }
             }
         }
 
+    /**
+     * a negyzetekben letrehozzuk a koroket amiket feherre szinezunk
+     * @return a frissitett negyzet
+     */
         private StackPane createSquare() {
             var square = new StackPane();
             square.getStyleClass().add("square");
@@ -71,18 +83,19 @@ public class DominoStartController {
             return square;
         }
 
+    /**
+     *
+     * @param event az egerrel valo kattintas
+     */
         @FXML
         private void handleMouseClick(MouseEvent event) {
             var square = (StackPane) event.getSource();
             var row = GridPane.getRowIndex(square);
             var col = GridPane.getColumnIndex(square);
-            System.out.printf("Click on square (%d,%d)\n", row, col);
             var coin = (Circle) square.getChildren().get(0);
-
-
-
-
-            if(gameState.didEnd()==false) {
+            Orange=gameState.Return_Orange();
+            log.info(player+"'s turn ended");
+            if(gameState.didEnd(Orange)==false) {
                 if (coin.getFill().equals(Color.WHITE)) {
                     if (player == Player.ONE) {
                         player = Player.TWO;
@@ -134,19 +147,25 @@ public class DominoStartController {
                 }
 
             }
-            rpoint.setText(Integer.toString(gameState.R_num()));
-            bpoint.setText(Integer.toString(gameState.B_num()));
+            rpoint.setText(Integer.toString(gameState.Return_num(Player.ONE)));
+            bpoint.setText(Integer.toString(gameState.Return_num(Player.TWO)));
+
 
         }
 
+    /**
+     *
+     * @param actionEvent a gombra valo kattintas
+     * @throws IOException kivetel
+     */
     @FXML
     public void endScene(ActionEvent actionEvent) throws IOException {
-            if(gameState.didEnd()) {
-                if(gameState.finalPoint()==1)
-                    adatb.Handler.insertResults(username,"RED",gameState.R_num()-gameState.B_num());
-                if(gameState.finalPoint()==2)
-                    adatb.Handler.insertResults(username2,"BLUE",gameState.B_num()-gameState.R_num());
-                if(gameState.finalPoint()==0)
+            if(gameState.didEnd(Orange)) {
+                if(gameState.finalPoint(gameState.Return_num(Player.ONE),gameState.Return_num(Player.TWO))==1)
+                    adatb.Handler.insertResults(username,"RED",gameState.Return_num(Player.ONE)-gameState.Return_num(Player.TWO));
+                if(gameState.finalPoint(gameState.Return_num(Player.ONE),gameState.Return_num(Player.TWO))==2)
+                    adatb.Handler.insertResults(username2,"BLUE",gameState.Return_num(Player.TWO)-gameState.Return_num(Player.ONE));
+                if(gameState.finalPoint(gameState.Return_num(Player.ONE),gameState.Return_num(Player.TWO))==0)
                     adatb.Handler.insertResults("Deuce","No",0);
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/End.fxml"));

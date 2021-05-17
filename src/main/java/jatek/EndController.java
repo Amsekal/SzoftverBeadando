@@ -47,7 +47,7 @@ public class EndController {
             list.add(tmp);
         }
         toplistanezet.getItems().setAll(list);
-        System.out.println(list.size());
+        log.info("Lenght of list: "+list.size());
     }
 
 }

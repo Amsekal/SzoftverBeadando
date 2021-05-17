@@ -6,7 +6,14 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import java.util.List;
 
+@Slf4j
 public class Handler {
+    /**
+     *
+     * @param winner a jatek gyoztese.
+     * @param winColor a jatek gyoztesenek szine.
+     * @param point mennyi ponttal nyert.
+     */
 
     public static void insertResults(String winner, String winColor, int point) {
         Jdbi jdbi = Jdbi.create("jdbc:mysql://remotemysql.com:3306/7UFqoovlD1?useSSL=false","7UFqoovlD1","PIfkhoRaYA");
@@ -23,11 +30,14 @@ public class Handler {
             return gameResult;
         });
 
-        //log.info("Inserted game: " + chairGames);
+        log.info("Inserted into Database: " + jatekVege);
     }
 
 
-
+    /**
+     *
+     * @return visszaadja a jatekok vegen kapott adatokat a toplistaba
+     */
     public static List<Result> listResults() {
         Jdbi jdbi = Jdbi.create("jdbc:mysql://remotemysql.com:3306/7UFqoovlD1?useSSL=false","7UFqoovlD1","PIfkhoRaYA");
         jdbi.installPlugin(new SqlObjectPlugin());

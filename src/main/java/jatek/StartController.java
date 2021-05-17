@@ -22,7 +22,11 @@ public class StartController {
     @FXML
     private TextField userName2;
 
-
+    /**
+     *
+     * @param actionEvent a gomb lenyomasa
+     * @throws IOException kivetel
+     */
     public void gameStartScene(ActionEvent actionEvent) throws IOException{
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/DominoStart.fxml"));
