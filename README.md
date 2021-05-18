@@ -8,7 +8,7 @@ Futtatás:
 
 mvn package
 
-java -jar ./target/ChairGame-1.0.jar
+java -jar ./target/Beadand-1.0.jar
 
 Java 16-ban készült
 Készítette: Semendi Ádám István
